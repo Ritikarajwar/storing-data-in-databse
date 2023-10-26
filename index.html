@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <label for="">player name</label>
+        <input type="text" id="name">
+        <br>
+        <label for="">aadhar no</label>
+        <input type="number" id="adhar-no">
+        <br>
+        <label for=""> game</label>
+        <input type="text" id="game">
+        <br>
+        <label for="">age group</label>
+        <select name="age-group" id="age-group">
+            <option value="junior">junior</option>
+            <option value="senior">senior</option>
+        </select>
+        <br>
+        <label for="">position</label>
+        <select name="position" id="position">
+            <option value="1st">1st</option>
+            <option value="2nd">2nd</option>
+            <option value="3rd">3rd</option>
+        </select>
+        <br>
+        <label for="">state</label>
+        <input type="text" id="state">
+        <br>
+        <label for="">tournament name</label>
+        <select name="tournament-name" id="tournament-name">
+            <option value="international">International</option>
+            <option value="national">National</option>
+            <option value="state">State</option>
+        </select>
+        <br>
+        <label for="">organised at</label>
+        <input type="text" id="organised-place">
+        <br>
+        <label for="">venue</label>
+        <input type="text" id="venue">
+        <button type="submit">done</button>
+    </form>
+
+    <script>
+        let form = document.querySelector('form')
+        let name = document.querySelector('#name')
+        let adhar_no = document.querySelector('#adhar-no')
+        let game = document.querySelector('#game')
+        let age_group = document.querySelector('#age-group')
+        let position = document.querySelector('#position')
+        let state = document.querySelector('#state')
+        let tournament_name = document.querySelector('#tournament-name')
+        let organised_at = document.querySelector('#organised-place')
+        let venue = document.querySelector('#venue')
+        let button = document.querySelector('button')
+
+
+
+        form.onsubmit = async (e) => {
+            e.preventDefault()
+
+
+            let date = new Date()
+            let fullyear = date.getFullYear().toString()
+            let year = fullyear.slice(2)
+            let id
+
+
+
+            const giveid = await fetch('http://localhost:8084/newentry')
+            .then((responce)=>{
+                return responce.json()
+            })
+            .then((result)=>{
+                indexno(result)
+            })
+            function indexno(result){
+                id=result.length
+                console.log(id)
+            }
+            function checkdata(result){
+                
+
+            }
+
+
+            const data = await fetch('http://localhost:8084/newentry', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+
+                    name: name.value,
+                    adhar_no: adhar_no.value,
+                    game: game.value,
+                    age_group: age_group.value,
+                    position: position.value,
+                    state: state.value,
+                    tournament_name: tournament_name.value,
+                    organised_at: organised_at.value,
+                    venue: venue.value,
+                    serial: "SGFI/" + tournament_name.value.split('')[0] + id+1+ '/' + year+'/'+id+1
+
+                })
+            })
+            const result = await data.json()
+            console.log(result)
+            
+            
+
+
+        
+
+
+            
+
+            // fetch('http://localhost:8084/newentry')
+            // .then((responce)=>{
+            //     return responce.json()
+            // })
+            // .then((result)=>{
+            //     console.log(result)
+            // })
+
+
+
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
