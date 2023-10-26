@@ -90,7 +90,7 @@
                 
 
             }
-
+            let sequence=0
 
             const data = await fetch('http://localhost:8084/newentry', {
                 method: "POST",
@@ -108,7 +108,7 @@
                     tournament_name: tournament_name.value,
                     organised_at: organised_at.value,
                     venue: venue.value,
-                    serial: "SGFI/" + tournament_name.value.split('')[0] + id+1+ '/' + year+'/'+id+1
+                    serial: "SGFI/" + tournament_name.value.split('')[0] + id+(++sequence)+ '/' + year+'/'+id
 
                 })
             })
@@ -116,7 +116,7 @@
             console.log(result)
             
             
-            
+
             
 
             fetch('http://localhost:8084/newentry')
