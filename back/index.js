@@ -20,11 +20,10 @@ let data
 app.post("/newentry",express.json(),async (req,res)=>{
     // res.json(details)
     // let info= await db.collection('players').find().toArray()
-    let details =  req.body.adhar_no
-
-    console.log(details)
-    let j=0;
-    data = await db.collection('players').find().toArray()
+    let details =  req.body
+    // console.log(details)
+    // let j=0;
+    // data = await db.collection('players').find().toArray()
     // console.log(data)
 //     for(let i=0;i<data.length;i++){
 //         if(data[i].details.adhar_no==details)
@@ -32,13 +31,12 @@ app.post("/newentry",express.json(),async (req,res)=>{
 //     else 
 //     console.log('can be added')
 //     // j=i
-
 //     }
-
 //     if(i == data.length-1)
 //     console.log('HELLO')
-//     // data = await db.collection('players').insertOne({details})
-//     // res.send(data)
+
+    data = await db.collection('players').insertOne({details})
+    res.send(data)
     
 
 }
