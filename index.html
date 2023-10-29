@@ -87,12 +87,14 @@
                 console.log(id)
             }
             function checkdata(result){
-                
 
+                
             }
+
+
             let sequence=0
 
-            const data = await fetch('http://localhost:8084/newentry', {
+            const data =fetch('http://localhost:8084/newentry', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -108,24 +110,34 @@
                     tournament_name: tournament_name.value,
                     organised_at: organised_at.value,
                     venue: venue.value,
-                    serial: "SGFI/" + tournament_name.value.split('')[0] + id+(++sequence)+ '/' + year+'/'+id
+                    serial: "SGFI/" + tournament_name.value.split('')[0] + id +(++sequence)+ '/' + year+'/'+id
 
                 })
             })
-            const result = await data.json()
-            console.log(result)
-            
-            
-
-            
-
-            fetch('http://localhost:8084/newentry')
             .then((responce)=>{
                 return responce.json()
             })
             .then((result)=>{
                 console.log(result)
             })
+
+
+
+
+            // const result = await data.json()
+            // console.log(result)
+            
+            
+
+            
+
+            // fetch('http://localhost:8084/newentry')
+            // .then((responce)=>{
+            //     return responce.json()
+            // })
+            // .then((result)=>{
+            //     console.log(result)
+            // })
 
 
 

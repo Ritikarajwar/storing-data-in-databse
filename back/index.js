@@ -15,32 +15,35 @@ app.options("/newentry",(req,res)=>{
     res.sendStatus(200)
 })
 
-let data
+
 
 app.post("/newentry",express.json(),async (req,res)=>{
-    // res.json(details)
-    // let info= await db.collection('players').find().toArray()
     let details =  req.body
-    // console.log(details)
-    // let j=0;
-    // data = await db.collection('players').find().toArray()
-    // console.log(data)
-//     for(let i=0;i<data.length;i++){
-//         if(data[i].details.adhar_no==details)
-//         console.log('data existed')
-//     else 
-//     console.log('can be added')
-//     // j=i
-//     }
-//     if(i == data.length-1)
-//     console.log('HELLO')
-
-    data = await db.collection('players').insertOne({details})
-    res.send(data)
+    let data = await db.collection('players').insertOne({details})
+    // res.send(data)
     
+    // res.json(details)
+    let existingPlayer= await db.collection('players').find({details}).toArray()
+    let adhar=req.body.adhar_no
+    
+    console.log(existingPlayer.details)
+    console.log(adhar)
+    res.send(existingPlayer)
+//     for(let i=0;i<existingPlayer.length;i++){
+        
+//         if(existingPlayer[i].details.adhar_no==adhar)
+//         console.log('data existed')
+//     else
+//     console.log('data can be added')
+// checkdata()
+// }
+// res.send(existingPlayer[0].details)
+// function checkdata(){
+    // }
 
-}
-)
+
+})
+
 
 
 app.get("/newentry",express.json(),async(req,res)=>{
