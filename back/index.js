@@ -19,28 +19,36 @@ app.options("/newentry",(req,res)=>{
 
 app.post("/newentry",express.json(),async (req,res)=>{
     let details =  req.body
-    let data = await db.collection('players').insertOne({details})
-    // res.send(data)
-    
-    // res.json(details)
-    let existingPlayer= await db.collection('players').find({details}).toArray()
-    let adhar=req.body.adhar_no
-    
-    console.log(existingPlayer.details)
-    console.log(adhar)
-    res.send(existingPlayer)
-//     for(let i=0;i<existingPlayer.length;i++){
-        
-//         if(existingPlayer[i].details.adhar_no==adhar)
-//         console.log('data existed')
-//     else
-//     console.log('data can be added')
-// checkdata()
-// }
-// res.send(existingPlayer[0].details)
-// function checkdata(){
-    // }
 
+    // let data = await db.collection('players').insertOne({details})
+    // res.send(data)
+    // console.log(details.adhar_no)
+    // res.json(details)
+
+    let existingPlayer= await db.collection('players').find().toArray()
+    let adhar = req.body.adhar_no
+
+    // console.log(existingPlayer)
+    // console.log(adhar)
+
+let exists = false
+    
+
+    for (let i=0;i<existingPlayer.length;i++){
+        if(existingPlayer[i].details.adhar_no==adhar){
+            
+            exists = true
+            
+        }
+    }
+
+    if(exists === true){
+        console.log("data existed")
+    }
+    else{
+        console.log("new entry")
+        let data = await db.collection('players').insertOne({details})
+    }
 
 })
 
@@ -49,7 +57,8 @@ app.post("/newentry",express.json(),async (req,res)=>{
 app.get("/newentry",express.json(),async(req,res)=>{
     let info= await db.collection('players').find().toArray()
     res.send(info)
-})
+}
+)
 
 
 
